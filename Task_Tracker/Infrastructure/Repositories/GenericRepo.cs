@@ -19,19 +19,26 @@ namespace Infrastructure.Repositories
             _dbset = _context.Set<T>(); 
         }
 
-        public async Task AddAsync(T item)
+        public async System.Threading.Tasks.Task AddAsync(T item)
         {
             await _context.AddAsync(item);
         }
 
-        public async void DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var item = await _dbset.FindAsync(id);
             if (item == null)
-                throw new NullReferenceException("The item can not be found");
+                return false;
             _context.Remove(item);
+            return true;
         }
-        public async Task<T> GetByAsync(int id)
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbset.ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync(int id)
         {
            var item = await _dbset.FindAsync(id);
             return item?? throw new NullReferenceException("The item can not be found");

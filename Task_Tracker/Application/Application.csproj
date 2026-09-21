@@ -7,23 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Comments\Commands\" />
-    <Folder Include="Features\Comments\DTOs\" />
-    <Folder Include="Features\Comments\Queries\" />
-    <Folder Include="Features\Projects\Commands\" />
-    <Folder Include="Features\Projects\DTOs\" />
-    <Folder Include="Features\Projects\Queries\" />
-    <Folder Include="Features\Task\Commands\" />
-    <Folder Include="Features\Task\DTOs\" />
-    <Folder Include="Features\Task\Queries\" />
+    <PackageReference Include="AutoMapper" Version="16.2.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,13 @@
-﻿using Domain.SharedEntities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Entities
+namespace Application.Features.Projects.DTOs
 {
-    public class Project : BaseEntity
+    public class CreateProjectDto
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Task> Tasks { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

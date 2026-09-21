@@ -8,7 +8,8 @@ namespace Application.Interfaces.Repositories
     {
         public Task AddAsync(T  item);
         public bool Update(T uItem);
-        public void DeleteAsync(int id);
-        public Task<T> GetByAsync(int id);
+        public Task<bool> DeleteAsync(int id);
+        public Task<T> GetByIdAsync(int id);
+        public Task<IEnumerable<T>> GetAllAsync();
     }
 }
