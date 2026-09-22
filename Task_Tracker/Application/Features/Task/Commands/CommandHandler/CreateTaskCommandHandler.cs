@@ -21,7 +21,7 @@ namespace Application.Features.Task.Commands.CommandHandler
         }
         public async Task<bool> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
         {
-            var task = _mapper.Map<Domain.Entities.Task>(request);
+            var task = _mapper.Map<Domain.Entities.Task>(request.createTaskDto);
             if (task == null)
                 return false;
             await _unitOfWork.Tasks.AddAsync(task);

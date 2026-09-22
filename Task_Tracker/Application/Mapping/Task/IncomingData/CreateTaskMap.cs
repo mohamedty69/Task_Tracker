@@ -11,9 +11,7 @@ namespace Application.Mapping.Task.IncomingData
     {
         public CreateTaskMap()
         {
-            CreateMap<CreateTaskDto, Domain.Entities.Task>()
-                .ForMember(dest => dest.CreatedAt,opt => opt.MapFrom(src => DateTime.UtcNow ));
-               
+            CreateMap<CreateTaskDto, Domain.Entities.Task>();               
         }
     }
 }

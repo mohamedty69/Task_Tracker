@@ -11,7 +11,7 @@ namespace Application.Features.Task.Commands.CommandValidators
         public TaskCommandValidator()
         {
             RuleFor(x => x.createTaskDto.Title).NotEmpty().MinimumLength(20).MaximumLength(50);
-            RuleFor(x => x.createTaskDto.Description).NotEmpty().MinimumLength(20).MaximumLength(50);
+            RuleFor(x => x.createTaskDto.Description).NotEmpty().MinimumLength(20).MaximumLength(200);
         }
     }
 }

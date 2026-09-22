@@ -24,7 +24,7 @@ namespace Task_Tracker.Controllers
                 return NotFound();
             return Ok(project);
         }
-        [HttpPost]
+        [HttpPost("CreateProject")]
         public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
         {
             var check = await _mediatr.Send(new CreateProjectCommand(createProjectDto));
