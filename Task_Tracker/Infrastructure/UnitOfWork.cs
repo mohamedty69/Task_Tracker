@@ -1,10 +1,7 @@
-﻿using Application;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Application.Interfaces.IRepositories;
 using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Infrastructure
 {
@@ -15,12 +12,14 @@ namespace Infrastructure
         public ITaskRepo Tasks {  get; }
 
         public IProjectRepo Projects {  get; }
+        public ICommentRepo Comments { get; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             Projects = new ProjectRepo(context);
             Tasks = new TaskRepo(context);
+            Comments = new CommentRepo(context);
         }
 
 

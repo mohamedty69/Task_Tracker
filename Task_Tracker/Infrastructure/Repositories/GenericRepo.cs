@@ -41,7 +41,7 @@ namespace Infrastructure.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
            var item = await _dbset.FindAsync(id);
-            return item?? throw new NullReferenceException("The item can not be found");
+            return item;
         }
 
         public bool Update(T uItem)

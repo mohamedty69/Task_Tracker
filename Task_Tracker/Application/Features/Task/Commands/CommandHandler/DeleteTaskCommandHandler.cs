@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.GenericResponses;
+using Application.Interfaces;
 using AutoMapper;
 using MediatR;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Application.Features.Task.Commands.CommandHandler
 {
-    public class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskCommand, bool>
+    public class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskCommand, Results<bool>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,11 +18,13 @@ namespace Application.Features.Task.Commands.CommandHandler
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<bool> Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
+        public async Task<Results<bool>> Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
         {
             var check = await _unitOfWork.Tasks.DeleteAsync(request.id);
             await _unitOfWork.SaveChangesAsync();
-            return check;
+            if (check)
+                return Results<bool>.Success(true);
+            return Results<bool>.Failure("The task does not deleted perhapes can not be found or antoher issue");
         }
     }
 }

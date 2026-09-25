@@ -1,13 +1,11 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.IServices;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 
-namespace Application
+namespace Infrastructure
 {
     public static class DependencyInjection
     {
@@ -15,6 +13,8 @@ namespace Application
             IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, Infrastructure.UnitOfWork>();
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IJwtService, JwtService>();
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection")));
 

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Application.Features.Task.Commands.CommandValidators
 {
-    public class TaskCommandValidator : AbstractValidator<CreateTaskCommand>
+    public class CreateTaskCommandValidator : AbstractValidator<CreateTaskCommand>
     {
-        public TaskCommandValidator()
+        public CreateTaskCommandValidator()
         {
             RuleFor(x => x.createTaskDto.Title).NotEmpty().MinimumLength(20).MaximumLength(50);
             RuleFor(x => x.createTaskDto.Description).NotEmpty().MinimumLength(20).MaximumLength(200);

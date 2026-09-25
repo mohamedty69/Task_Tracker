@@ -1,4 +1,5 @@
 ﻿using Application.Behaviors;
+using Application.Mapping.Auth;
 using Application.Mapping.Project.IncommingData;
 using Application.Mapping.Project.OutgoingData;
 using Application.Mapping.Task.IncomingData;
@@ -23,7 +24,7 @@ namespace Application
                 cfg.AddOpenBehaviors(new List<Type> { typeof(LoggingBehavior<,>), typeof(ValidationBehavior<,>) }); });
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(cfg => { }, typeof(DisplayTaskMap), typeof(CreateTaskMap),typeof(UpdateTaskMap)
-                ,typeof(CreateProjectMap),typeof(DisplayProjectMap));
+                ,typeof(CreateProjectMap),typeof(DisplayProjectMap),typeof(RegisterUserMap));
             return services;
         }
     }

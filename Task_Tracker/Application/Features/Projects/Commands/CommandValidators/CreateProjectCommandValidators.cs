@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Application.Features.Projects.Commands.CommandValidators
 {
-    public class ProjectCommandValidators : AbstractValidator<CreateProjectCommand>
+    public class CreateProjectCommandValidators : AbstractValidator<CreateProjectCommand>
     {
-        public ProjectCommandValidators()
+        public CreateProjectCommandValidators()
         {
             RuleFor(x => x.createProjectDto.Name).NotEmpty().WithMessage("The project name can not be empty");
             RuleFor(x => x.createProjectDto.Description).NotEmpty().MinimumLength(20).MaximumLength(200);

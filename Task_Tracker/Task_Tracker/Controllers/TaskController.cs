@@ -2,13 +2,17 @@
 using Application.Features.Task.Commands.CommandsClasses;
 using Application.Features.Task.DTOs;
 using Application.Features.Task.Queries.QueryClasses;
+using Application.GenericResponses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Task_Tracker.Middlewares;
 
 namespace Task_Tracker.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     [ApiController]
     public class TaskController : ControllerBase
     {
@@ -24,25 +28,34 @@ namespace Task_Tracker.Controllers
             if (taskDto == null)
                throw new NullReferenceException("Tha task must be not empty");
             var check = await _mediatr.Send(new CreateTaskCommand(taskDto));
-            if (check)
+            if (check.IsSucssed)
                 return Created();
-            return BadRequest();
+            if (check.StatusCode == 400) return BadRequest(check.ErrorMessage);
+            else if (check.StatusCode == 403) return Unauthorized(check.ErrorMessage);
+            return NotFound(check.ErrorMessage);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
             var check = await _mediatr.Send(new DeleteTaskCommand(id));
-            if (check) return Ok("Task is deleted");
-            return BadRequest("The task can not be found");
+            if (check.IsSucssed) return Ok("Task is deleted");
+            if (check.StatusCode == 400) return BadRequest(check.ErrorMessage);
+            else if (check.StatusCode == 403) return Unauthorized(check.ErrorMessage);
+            return NotFound(check.ErrorMessage);
         }
         [HttpPut]
         public async Task<IActionResult> UpdateTask(UpdateTaskDto uTaskDto)
         {
+            
             if (uTaskDto == null)
                 throw new ArgumentNullException("You need to fill the fields");
             var check = await _mediatr.Send(new UpdateTaskCommand(uTaskDto));
-            if (check) return Ok("Task updated successfully");
-            return BadRequest("You need to fill or change the fields value to update");
+            if (check.IsSucssed) return Ok("Task updated successfully");
+            if(check.StatusCode == 400) return BadRequest(check.ErrorMessage);
+            else if (check.StatusCode == 403) return Unauthorized(check.ErrorMessage);
+            return NotFound(check.ErrorMessage);
+            
+            
         }
         [HttpGet("GetTasks")]
         public async Task<IActionResult> GetAllTasks()
@@ -55,6 +68,18 @@ namespace Task_Tracker.Controllers
         {
             var tasks = await _mediatr.Send(new GetByIdTaskQuery(id));
             return Ok(tasks);
+        }
+        [HttpPut("ChangeTaskStatus")]
+        public async Task<IActionResult> ChangeTaskStatus(ChangeTaskStatusDto changeTaskStatusDto)
+        {
+            if (changeTaskStatusDto == null)
+                throw new ArgumentNullException("You need to fill the fields first");
+            var result = await _mediatr.Send(new ChangeTaskStatusCommand(changeTaskStatusDto));
+            if (result.IsSucssed)
+                return Ok("Task Status Updated");
+            if (result.StatusCode == 400) return BadRequest(result.ErrorMessage);
+            else if (result.StatusCode == 403) return Unauthorized(result.ErrorMessage);
+            return NotFound(result.ErrorMessage);
         }
     }
 }

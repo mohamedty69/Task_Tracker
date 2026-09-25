@@ -10,6 +10,7 @@ namespace Application.Interfaces
     {
         public ITaskRepo Tasks { get; }
         public IProjectRepo Projects { get; }
+        public ICommentRepo Comments { get; } 
         public Task SaveChangesAsync();
     }
 }

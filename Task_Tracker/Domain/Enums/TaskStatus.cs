@@ -8,6 +8,7 @@ namespace Domain.Enums
     {
         ToDo,
         InProgress,
-        Done
+        Completed,
+        Cancelled
     }
 }

@@ -7,7 +7,7 @@ namespace Application.Features.Task.DTOs
 {
     public class UpdateTaskDto
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Domain.Enums.TaskStatus TaskStatus { get; set; }

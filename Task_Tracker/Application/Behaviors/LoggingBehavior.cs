@@ -23,7 +23,7 @@ namespace Application.Behaviors
             stopWatch.Start();
             var response = await next();
             stopWatch.Stop();
-            _logger.LogInformation($"The {typeof(TRequest).Name} request is finisherd after {stopWatch.ElapsedMilliseconds} ms");
+            _logger.LogInformation($"The {typeof(TRequest).Name} request is finished after {stopWatch.ElapsedMilliseconds} ms");
             return response;
         }
     }
